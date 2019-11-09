@@ -7,7 +7,6 @@ import java.time.DayOfWeek;
 import java.time.LocalTime;
 
 @Embeddable
-//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class CourseSchedule {
 
     private String location;

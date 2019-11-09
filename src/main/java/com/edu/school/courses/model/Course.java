@@ -10,7 +10,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Course {
 
     @Id
@@ -20,10 +20,10 @@ public class Course {
     private LocalDate startDate;
     private LocalDate endDate;
 
-//    @ElementCollection(fetch = FetchType.EAGER)
-//    @JoinTable( name = "COURSE_SCHEDULE" ,
-//                joinColumns = @JoinColumn(name = "COURSE_ID"))
-//    private List<CourseSchedule> courseSchedules;
+    @ElementCollection(fetch = FetchType.EAGER)
+    @JoinTable( name = "COURSE_SCHEDULE" ,
+                joinColumns = @JoinColumn(name = "COURSE_ID"))
+    private List<CourseSchedule> courseSchedules;
 
     public Long getUidPk() {
         return uidPk;
@@ -49,11 +49,11 @@ public class Course {
         this.endDate = endDate;
     }
 
-//    public List<CourseSchedule> getCourseSchedules() {
-//        return courseSchedules;
-//    }
-//
-//    public void setCourseSchedules(List<CourseSchedule> courseSchedules) {
-//        this.courseSchedules = courseSchedules;
-//    }
+    public List<CourseSchedule> getCourseSchedules() {
+        return courseSchedules;
+    }
+
+    public void setCourseSchedules(List<CourseSchedule> courseSchedules) {
+        this.courseSchedules = courseSchedules;
+    }
 }
