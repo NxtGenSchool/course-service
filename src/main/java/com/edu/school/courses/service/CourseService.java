@@ -32,4 +32,8 @@ public class CourseService {
     public Course updateCourse(Course course) {
         return repository.existsById(course.getUidPk()) ? repository.save(course) : null;
     }
+
+    public void deleteCourse( Long courseId) {
+        repository.deleteById( courseId );
+    }
 }

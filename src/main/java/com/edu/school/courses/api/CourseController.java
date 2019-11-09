@@ -40,8 +40,9 @@ public class CourseController {
         return courseService.updateCourse(course);
     }
 
-    public void deleteCourse() {
-
+    @DeleteMapping( path = "courses/{courseId}" , produces = APPLICATION_JSON_VALUE)
+    public void deleteCourse(@PathVariable Long courseId) {
+        courseService.deleteCourse( courseId );
     }
 
 
