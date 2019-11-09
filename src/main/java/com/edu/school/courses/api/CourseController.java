@@ -35,8 +35,9 @@ public class CourseController {
         return courseService.getAllCourses();
     }
 
-    public void updateCourse() {
-
+    @PutMapping( path = "courses/{courseId}" , produces = APPLICATION_JSON_VALUE)
+    public Course updateCourse(@RequestBody Course course) {
+        return courseService.updateCourse(course);
     }
 
     public void deleteCourse() {

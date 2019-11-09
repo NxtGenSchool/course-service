@@ -28,4 +28,8 @@ public class CourseService {
     public List<Course> getAllCourses() {
         return repository.findAll();
     }
+
+    public Course updateCourse(Course course) {
+        return repository.existsById(course.getUidPk()) ? repository.save(course) : null;
+    }
 }
