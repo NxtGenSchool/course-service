@@ -1,0 +1,17 @@
+spring :
+  profiles:
+    active : development
+
+server :
+  port : 4050
+
+---
+
+spring :
+  profiles: development
+  h2:
+    console:
+      enabled : true
+  jpa :
+    hibernate:
+      ddl-auto: create-drop
