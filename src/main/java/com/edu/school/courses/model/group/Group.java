@@ -1,5 +1,6 @@
-package com.edu.school.courses.model.Group;
+package com.edu.school.courses.model.group;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
@@ -7,7 +8,8 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@javax.persistence.Table(name = "\"Group\"")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@javax.persistence.Table(name = "\"group\"")
 public class Group {
 
     @Id
@@ -33,6 +35,13 @@ public class Group {
 
     @OneToMany(mappedBy = "groupId")
     private List<Event> events;
+
+//    @JsonCreator
+//    public static Group getInstance() {
+//        return new Group();
+//    }
+
+//    private Group(){}
 
     public Long getUidPk() {
         return uidPk;
@@ -97,4 +106,5 @@ public class Group {
     public void setEvents(List<Event> events) {
         this.events = events;
     }
+
 }

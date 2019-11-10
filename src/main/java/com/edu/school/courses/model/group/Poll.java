@@ -1,5 +1,6 @@
-package com.edu.school.courses.model.Group;
+package com.edu.school.courses.model.group;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
@@ -8,7 +9,8 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-public class Question {
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+public class Poll {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -21,15 +23,11 @@ public class Question {
     private Author author;
     private String content;
     private LocalDate createdDate;
-    private int ask;
+    private int likes;
 
     @ElementCollection
     @LazyCollection(LazyCollectionOption.FALSE)
-    private List<Comment> comments;
-
-    @ElementCollection
-    @LazyCollection(LazyCollectionOption.FALSE)
-    private List<Answer> answers;
+    private List<Options> options;
 
     public Long getUidPk() {
         return uidPk;
@@ -71,27 +69,19 @@ public class Question {
         this.createdDate = createdDate;
     }
 
-    public int getAsk() {
-        return ask;
+    public int getLikes() {
+        return likes;
     }
 
-    public void setAsk(int ask) {
-        this.ask = ask;
+    public void setLikes(int likes) {
+        this.likes = likes;
     }
 
-    public List<Comment> getComments() {
-        return comments;
+    public List<Options> getOptions() {
+        return options;
     }
 
-    public void setComments(List<Comment> comments) {
-        this.comments = comments;
-    }
-
-    public List<Answer> getAnswers() {
-        return answers;
-    }
-
-    public void setAnswers(List<Answer> answers) {
-        this.answers = answers;
+    public void setOptions(List<Options> options) {
+        this.options = options;
     }
 }

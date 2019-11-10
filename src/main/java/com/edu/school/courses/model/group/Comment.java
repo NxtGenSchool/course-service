@@ -1,4 +1,4 @@
-package com.edu.school.courses.model.Group;
+package com.edu.school.courses.model.group;
 
 import javax.persistence.Embeddable;
 import javax.persistence.OneToOne;

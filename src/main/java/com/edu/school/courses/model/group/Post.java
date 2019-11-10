@@ -1,5 +1,6 @@
-package com.edu.school.courses.model.Group;
+package com.edu.school.courses.model.group;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
@@ -10,6 +11,7 @@ import java.util.List;
 /*To create Post the caller should*/
 
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Post {
 
     @Id

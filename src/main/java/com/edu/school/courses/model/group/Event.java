@@ -1,9 +1,12 @@
-package com.edu.school.courses.model.Group;
+package com.edu.school.courses.model.group;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Event {
 
     @Id
