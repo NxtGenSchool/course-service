@@ -3,16 +3,14 @@ package com.edu.school.courses.api.group;
 import com.edu.school.courses.model.group.Post;
 import com.edu.school.courses.service.group.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
+@RequestMapping("courses/{courseId}/group/")
 public class PostController {
 
     private PostService postService;
@@ -22,7 +20,7 @@ public class PostController {
         this.postService = postService;
     }
 
-    @PostMapping(path = "posts/create", produces = APPLICATION_JSON_VALUE)
+    @PostMapping(path = "posts", produces = APPLICATION_JSON_VALUE)
     public Post createPost() {
         return postService.createPost();
     }

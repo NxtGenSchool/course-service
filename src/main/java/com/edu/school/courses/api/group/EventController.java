@@ -3,16 +3,14 @@ package com.edu.school.courses.api.group;
 import com.edu.school.courses.model.group.Event;
 import com.edu.school.courses.service.group.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
+@RequestMapping("courses/{courseId}/group/")
 public class EventController {
 
     private EventService eventService;
@@ -22,7 +20,7 @@ public class EventController {
         this.eventService = eventService;
     }
 
-    @PostMapping(path = "events/create", produces = APPLICATION_JSON_VALUE)
+    @PostMapping(path = "events", produces = APPLICATION_JSON_VALUE)
     public Event createEvent() {
         return eventService.createEvent();
     }

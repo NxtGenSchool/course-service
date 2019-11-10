@@ -3,17 +3,14 @@ package com.edu.school.courses.api.group;
 import com.edu.school.courses.model.group.Group;
 import com.edu.school.courses.service.group.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
-//@RequestMapping(path = "courses/{courseId}/")
+@RequestMapping("courses/{courseId}/group/")
 public class GroupController {
 
     private GroupService groupService;
@@ -23,7 +20,7 @@ public class GroupController {
         this.groupService = groupService;
     }
 
-    @PostMapping(path = "groups/create", produces = APPLICATION_JSON_VALUE)
+    @PostMapping(path = "groups", produces = APPLICATION_JSON_VALUE)
     public Group createGroup() {
         return groupService.createGroup();
     }
