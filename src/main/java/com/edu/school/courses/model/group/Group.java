@@ -21,19 +21,19 @@ public class Group {
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<String> moderator;
 
-    @OneToMany(mappedBy = "groupId")
+    @OneToMany(mappedBy = "group")
     private List<Member> members;
 
-    @OneToMany(mappedBy = "groupId")
+    @OneToMany(mappedBy = "group")
     private List<Post> posts;
 
-    @OneToMany(mappedBy = "groupId")
+    @OneToMany(mappedBy = "group")
     private List<Question> questions;
 
-    @OneToMany(mappedBy = "groupId")
+    @OneToMany(mappedBy = "group")
     private List<Poll> polls;
 
-    @OneToMany(mappedBy = "groupId")
+    @OneToMany(mappedBy = "group")
     private List<Event> events;
 
 //    @JsonCreator

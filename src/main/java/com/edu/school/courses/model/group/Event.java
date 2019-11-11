@@ -1,5 +1,6 @@
 package com.edu.school.courses.model.group;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
@@ -13,16 +14,30 @@ public class Event {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long uidPk;
 
+    //TODO: change Group to group
     @ManyToOne(targetEntity = Group.class)
-    private Long groupId;
+    @JsonIgnore
+    private Group group;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Author author;
     private String title;
     private String Description;
     private String Location;
     private LocalDate Time;
     private LocalDate createdDate;
+
+    public static Event getDuplicateInstance(Event event) {
+        Event newEvent = new Event();
+        newEvent.setAuthor(event.getAuthor());
+        newEvent.setCreatedDate(event.getCreatedDate());
+        newEvent.setDescription(event.getDescription());
+        newEvent.setLocation(event.getLocation());
+        newEvent.setTitle(event.getTitle());
+        newEvent.setTime(event.getTime());
+        newEvent.setGroup(event.getGroup());
+        return newEvent;
+    }
 
     public Long getUidPk() {
         return uidPk;
@@ -32,12 +47,12 @@ public class Event {
         this.uidPk = uidPk;
     }
 
-    public Long getGroupId() {
-        return groupId;
+    public Group getGroup() {
+        return group;
     }
 
-    public void setGroupId(Long groupId) {
-        this.groupId = groupId;
+    public void setGroup(Group group) {
+        this.group = group;
     }
 
     public Author getAuthor() {

@@ -1,9 +1,7 @@
 package com.edu.school.courses.model;
 
+import com.edu.school.courses.model.group.Group;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.hibernate.annotations.CollectionId;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -14,16 +12,34 @@ import java.util.List;
 public class Course {
 
     @Id
-    @GeneratedValue( strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long uidPk;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    private Group group;
 
     private LocalDate startDate;
     private LocalDate endDate;
 
     @ElementCollection(fetch = FetchType.EAGER)
-    @JoinTable( name = "COURSE_SCHEDULE" ,
-                joinColumns = @JoinColumn(name = "COURSE_ID"))
+    @JoinTable(name = "COURSE_SCHEDULE",
+            joinColumns = @JoinColumn(name = "COURSE_ID"))
     private List<CourseSchedule> courseSchedules;
+
+    public static Course getInstance() {
+        Course newCourse = new Course();
+        newCourse.setGroup(new Group());
+        return newCourse;
+    }
+
+    public static Course getInstance(Course givenCourse) {
+        Course newCourse = new Course();
+        newCourse.setGroup(new Group());
+        newCourse.setStartDate(givenCourse.getStartDate());
+        newCourse.setEndDate(givenCourse.endDate);
+        newCourse.setCourseSchedules(givenCourse.getCourseSchedules());
+        return newCourse;
+    }
 
     public Long getUidPk() {
         return uidPk;
@@ -31,6 +47,14 @@ public class Course {
 
     public void setUidPk(Long uidPk) {
         this.uidPk = uidPk;
+    }
+
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
     }
 
     public LocalDate getStartDate() {

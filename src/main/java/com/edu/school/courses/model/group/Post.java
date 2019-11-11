@@ -1,5 +1,6 @@
 package com.edu.school.courses.model.group;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
@@ -18,8 +19,10 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long uidPk;
 
+    //TODO: change Group to groupId
     @ManyToOne(targetEntity = Group.class)
-    private Long groupId;
+    @JsonIgnore
+    private Group group;
 
     @OneToOne
     private Author author;
@@ -39,12 +42,12 @@ public class Post {
         this.uidPk = uidPk;
     }
 
-    public Long getGroupId() {
-        return groupId;
+    public Group getGroup() {
+        return group;
     }
 
-    public void setGroupId(Long groupId) {
-        this.groupId = groupId;
+    public void setGroupId(Group group) {
+        this.group = group;
     }
 
     public Author getAuthor() {
