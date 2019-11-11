@@ -10,7 +10,7 @@ import java.util.List;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
-@RequestMapping("courses/{courseId}/group/")
+@RequestMapping("courses/{courseId}/")
 public class GroupController {
 
     private GroupService groupService;

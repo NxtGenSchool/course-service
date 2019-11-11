@@ -18,10 +18,11 @@ public class CourseService {
     }
 
     public Course getCourse(Long courseId) {
-        return  repository.getOne(courseId);
+        return repository.getOne(courseId);
     }
 
-    public Course createCourse ( Course newCourse) {
+    public Course createCourse(Course course) {
+        Course newCourse = Course.getInstance(course);
         return repository.save(newCourse);
     }
 
@@ -33,7 +34,7 @@ public class CourseService {
         return repository.existsById(course.getUidPk()) ? repository.save(course) : null;
     }
 
-    public void deleteCourse( Long courseId) {
-        repository.deleteById( courseId );
+    public void deleteCourse(Long courseId) {
+        repository.deleteById(courseId);
     }
 }

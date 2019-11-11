@@ -21,8 +21,8 @@ public class EventController {
     }
 
     @PostMapping(path = "events", produces = APPLICATION_JSON_VALUE)
-    public Event createEvent() {
-        return eventService.createEvent();
+    public Event createEvent(@PathVariable Long courseId, @RequestBody Event event) {
+        return eventService.createEvent(courseId, event);
     }
 
     @GetMapping(path = "events/{eventId}", produces = APPLICATION_JSON_VALUE)
