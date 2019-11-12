@@ -36,6 +36,17 @@ public class Question {
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Answer> answers;
 
+    public static Question getInstance(Question userQuestion) {
+        Question newQuestion = new Question();
+        newQuestion.setContent(userQuestion.getContent());
+        newQuestion.setAuthor(userQuestion.getAuthor());
+        newQuestion.setAnswers(userQuestion.getAnswers());
+        newQuestion.setComments(userQuestion.getComments());
+        newQuestion.setCreatedDate(userQuestion.getCreatedDate());
+        newQuestion.setAsk(userQuestion.getAsk());
+        return newQuestion;
+    }
+
     public Long getUidPk() {
         return uidPk;
     }
@@ -44,11 +55,11 @@ public class Question {
         this.uidPk = uidPk;
     }
 
-    public Group getGroupId() {
+    public Group getGroup() {
         return group;
     }
 
-    public void setGroupId(Group group) {
+    public void setGroup(Group group) {
         this.group = group;
     }
 

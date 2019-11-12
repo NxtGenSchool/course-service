@@ -21,8 +21,8 @@ public class QuestionController {
     }
 
     @PostMapping(path = "questions", produces = APPLICATION_JSON_VALUE)
-    public Question createQuestion() {
-        return questionService.createQuestion();
+    public Question createQuestion(@PathVariable Long courseId, @RequestBody Question userQuestion) {
+        return questionService.createQuestion(courseId, userQuestion);
     }
 
     @GetMapping(path = "questions/{questionId}", produces = APPLICATION_JSON_VALUE)
