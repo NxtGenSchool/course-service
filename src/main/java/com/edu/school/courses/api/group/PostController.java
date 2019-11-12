@@ -21,8 +21,8 @@ public class PostController {
     }
 
     @PostMapping(path = "posts", produces = APPLICATION_JSON_VALUE)
-    public Post createPost() {
-        return postService.createPost();
+    public Post createPost(@PathVariable Long courseId, @RequestBody Post userPost) {
+        return postService.createPost(courseId, userPost);
     }
 
     @GetMapping(path = "posts/{postId}", produces = APPLICATION_JSON_VALUE)

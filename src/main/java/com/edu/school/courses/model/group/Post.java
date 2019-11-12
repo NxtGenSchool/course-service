@@ -34,6 +34,16 @@ public class Post {
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Comment> comments;
 
+    public static Post getInstance(Post userPost) {
+        Post newPost = new Post();
+        newPost.setContent(userPost.getContent());
+        newPost.setAuthor(userPost.getAuthor());
+        newPost.setComments(userPost.getComments());
+        newPost.setCreatedDate(userPost.getCreatedDate());
+        newPost.setLikes(userPost.getLikes());
+        return newPost;
+    }
+
     public Long getUidPk() {
         return uidPk;
     }
@@ -46,7 +56,7 @@ public class Post {
         return group;
     }
 
-    public void setGroupId(Group group) {
+    public void setGroup(Group group) {
         this.group = group;
     }
 
