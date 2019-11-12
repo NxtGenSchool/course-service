@@ -1,5 +1,6 @@
 package com.edu.school.courses.model.group;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Embeddable;
 import javax.persistence.OneToOne;
 import java.time.LocalDate;
@@ -7,7 +8,7 @@ import java.time.LocalDate;
 @Embeddable
 public class Comment {
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Author author;
     private String content;
     private LocalDate createdDate;

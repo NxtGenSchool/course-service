@@ -22,7 +22,7 @@ public class Question {
     @JsonIgnore
     private Group group;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Author author;
     private String content;
     private LocalDate createdDate;

@@ -1,21 +1,25 @@
 package com.edu.school.courses.model.group;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Embeddable;
+import javax.persistence.OneToOne;
 import java.time.LocalDate;
 
 @Embeddable
 public class Answer {
-    private Long authorUID;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    private Author author;
     private String content;
     private LocalDate createdDate;
     private int likes;
 
-    public Long getAuthorUID() {
-        return authorUID;
+    public Author getAuthor() {
+        return author;
     }
 
-    public void setAuthorUID(Long authorUID) {
-        this.authorUID = authorUID;
+    public void setAuthorUID(Author authorUID) {
+        this.author = author;
     }
 
     public String getContent() {
