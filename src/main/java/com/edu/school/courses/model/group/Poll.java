@@ -22,7 +22,7 @@ public class Poll {
     @JsonIgnore
     private Group group;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Author author;
     private String content;
     private LocalDate createdDate;
@@ -31,6 +31,16 @@ public class Poll {
     @ElementCollection
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Options> options;
+
+    public static Poll getInstance(Poll userPoll) {
+        Poll newPoll = new Poll();
+        newPoll.setContent(userPoll.getContent());
+        newPoll.setAuthor(userPoll.getAuthor());
+        newPoll.setOptions(userPoll.getOptions());
+        newPoll.setCreatedDate(userPoll.getCreatedDate());
+        newPoll.setLikes(userPoll.getLikes());
+        return newPoll;
+    }
 
     public Long getUidPk() {
         return uidPk;

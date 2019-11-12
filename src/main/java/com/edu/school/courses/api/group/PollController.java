@@ -21,8 +21,8 @@ public class PollController {
     }
 
     @PostMapping(path = "polls", produces = APPLICATION_JSON_VALUE)
-    public Poll createPoll() {
-        return pollService.createPoll();
+    public Poll createPoll(@PathVariable Long courseId, @RequestBody Poll poll) {
+        return pollService.createPoll(courseId, poll);
     }
 
     @GetMapping(path = "polls/{pollId}", produces = APPLICATION_JSON_VALUE)
