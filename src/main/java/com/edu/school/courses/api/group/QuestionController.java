@@ -35,4 +35,9 @@ public class QuestionController {
         return questionService.getAllQuestion();
     }
 
+    @PutMapping(path = "questions/{questionId}/ask", produces = APPLICATION_JSON_VALUE)
+    public void increamentLike(@PathVariable Long questionId) {
+        questionService.increamentAsk(questionId);
+    }
+
 }

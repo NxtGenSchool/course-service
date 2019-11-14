@@ -13,6 +13,14 @@ public class Comment {
     private String content;
     private LocalDate createdDate;
 
+    public static Comment getInstance(Comment userComment) {
+        Comment newComment = new Comment();
+        newComment.setAuthor(userComment.getAuthor());
+        newComment.setContent(userComment.getContent());
+        newComment.setCreatedDate(userComment.getCreatedDate());
+        return newComment;
+    }
+
     public Author getAuthor() {
         return author;
     }
