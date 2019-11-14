@@ -34,4 +34,9 @@ public class PostController {
     public List<Post> getAllPost() {
         return postService.getAllPost();
     }
+
+    @PutMapping(path = "posts/{postId}/like", produces = APPLICATION_JSON_VALUE)
+    public void increamentLike(@PathVariable Long postId) {
+        postService.increamentLike(postId);
+    }
 }

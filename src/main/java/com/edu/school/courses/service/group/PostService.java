@@ -33,4 +33,11 @@ public class PostService {
     public List<Post> getAllPost() {
         return postRepository.findAll();
     }
+
+    public void increamentLike(Long postId) {
+        Post post = postRepository.getOne(postId);
+        int likes = post.getLikes();
+        post.setLikes(++likes);
+        postRepository.save(post);
+    }
 }
