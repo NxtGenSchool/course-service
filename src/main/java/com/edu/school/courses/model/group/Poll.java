@@ -30,7 +30,7 @@ public class Poll {
 
     @ElementCollection
     @LazyCollection(LazyCollectionOption.FALSE)
-    private List<Options> options;
+    private List<Option> options;
 
     public static Poll getInstance(Poll userPoll) {
         Poll newPoll = new Poll();
@@ -90,11 +90,11 @@ public class Poll {
         this.likes = likes;
     }
 
-    public List<Options> getOptions() {
+    public List<Option> getOptions() {
         return options;
     }
 
-    public void setOptions(List<Options> options) {
+    public void setOptions(List<Option> options) {
         this.options = options;
     }
 }

@@ -3,7 +3,7 @@ package com.edu.school.courses.model.group;
 import javax.persistence.Embeddable;
 
 @Embeddable
-public class Options {
+public class Option {
 
     private String content;
     private int counter;
