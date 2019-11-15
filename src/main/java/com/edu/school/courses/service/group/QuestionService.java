@@ -70,4 +70,9 @@ public class QuestionService {
         });
         questionRepository.save(question);
     }
+
+    public List<Answer> getAllAnswers(Long questionId) {
+        Question question = questionRepository.getOne(questionId);
+        return question.getAnswers();
+    }
 }

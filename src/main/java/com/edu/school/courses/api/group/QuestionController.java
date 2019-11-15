@@ -46,6 +46,11 @@ public class QuestionController {
         return questionService.createAnswer(questionId, userAnswer);
     }
 
+    @GetMapping(path = "questions/{questionId}/answers/all", produces = APPLICATION_JSON_VALUE)
+    public List<Answer> getAllAnswer(@PathVariable Long questionId) {
+        return questionService.getAllAnswers(questionId);
+    }
+
     @PutMapping(path = "questions/{questionId}/answers/{answerId}", produces = APPLICATION_JSON_VALUE)
     public void increamentAnserLike(@PathVariable Long questionId, @PathVariable String answerId) {
         questionService.increamentAnswerLike(questionId, answerId);
