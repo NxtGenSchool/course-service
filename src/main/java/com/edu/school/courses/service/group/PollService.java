@@ -35,4 +35,15 @@ public class PollService {
     public List<Poll> getAllPoll() {
         return pollRepository.findAll();
     }
+
+    public void increamentPollCounter(Long pollId, String optionId) {
+        Poll poll = pollRepository.getOne(pollId);
+        poll.getOptions().forEach(option -> {
+            if (option.getUidPk().equals(optionId)) {
+                int optionCount = option.getCounter();
+                option.setCounter(++optionCount);
+            }
+        });
+        pollRepository.save(poll);
+    }
 }
