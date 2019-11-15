@@ -23,7 +23,7 @@ public class EventService {
     }
 
     public Event createEvent(Long courseId, Event event) {
-        Event newEvent = Event.getDuplicateInstance(event);
+        Event newEvent = Event.getInstance(event);
         Course course = courseService.getCourse(courseId);
         newEvent.setGroup(course.getGroup());
         return eventRepository.save(newEvent);

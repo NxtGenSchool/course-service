@@ -27,7 +27,7 @@ public class Event {
     private LocalDate Time;
     private LocalDate createdDate;
 
-    public static Event getDuplicateInstance(Event event) {
+    public static Event getInstance(Event event) {
         Event newEvent = new Event();
         newEvent.setAuthor(event.getAuthor());
         newEvent.setCreatedDate(event.getCreatedDate());
