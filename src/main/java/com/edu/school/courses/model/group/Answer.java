@@ -14,11 +14,21 @@ public class Answer {
     private LocalDate createdDate;
     private int likes;
 
+    public static Answer getInstance(Answer answer) {
+        Answer newAnswer = new Answer();
+        newAnswer.setAuthor(answer.getAuthor());
+        newAnswer.setContent(answer.getContent());
+        newAnswer.setCreatedDate(answer.getCreatedDate());
+        newAnswer.setLikes(answer.getLikes());
+        return newAnswer;
+    }
+
+
     public Author getAuthor() {
         return author;
     }
 
-    public void setAuthorUID(Author authorUID) {
+    public void setAuthor(Author author) {
         this.author = author;
     }
 

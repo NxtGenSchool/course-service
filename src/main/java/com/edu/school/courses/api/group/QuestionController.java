@@ -1,5 +1,6 @@
 package com.edu.school.courses.api.group;
 
+import com.edu.school.courses.model.group.Answer;
 import com.edu.school.courses.model.group.Question;
 import com.edu.school.courses.service.group.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,4 +41,8 @@ public class QuestionController {
         questionService.increamentAsk(questionId);
     }
 
+    @PostMapping(path = "questions/{questionId}/answers", produces = APPLICATION_JSON_VALUE)
+    public Question createAnswer(@PathVariable Long questionId, @RequestBody Answer userAnswer) {
+        return questionService.createAnswer(questionId, userAnswer);
+    }
 }

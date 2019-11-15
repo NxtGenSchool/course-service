@@ -1,6 +1,7 @@
 package com.edu.school.courses.service.group;
 
 import com.edu.school.courses.Repository.group.QuestionRepository;
+import com.edu.school.courses.model.group.Answer;
 import com.edu.school.courses.model.group.Comment;
 import com.edu.school.courses.model.group.Question;
 import com.edu.school.courses.service.CourseService;
@@ -50,5 +51,12 @@ public class QuestionService {
         int asks = question.getAsk();
         question.setAsk(++asks);
         questionRepository.save(question);
+    }
+
+    public Question createAnswer(Long questionId, Answer userAnswer) {
+        Question question = questionRepository.getOne(questionId);
+        Answer newAnswer = Answer.getInstance(userAnswer);
+        question.getAnswers().add(newAnswer);
+        return questionRepository.save(question);
     }
 }
