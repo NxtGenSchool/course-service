@@ -46,4 +46,11 @@ public class PollService {
         });
         pollRepository.save(poll);
     }
+
+    public void increamentLike(Long pollId) {
+        Poll poll = pollRepository.getOne(pollId);
+        int likes = poll.getLikes();
+        poll.setLikes(++likes);
+        pollRepository.save(poll);
+    }
 }

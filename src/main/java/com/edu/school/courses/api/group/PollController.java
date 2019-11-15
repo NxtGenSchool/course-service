@@ -39,4 +39,9 @@ public class PollController {
     public void increamentOptionCounter(@PathVariable Long pollId, @PathVariable String optionId) {
         pollService.increamentPollCounter(pollId, optionId);
     }
+
+    @PutMapping(path = "polls/{pollId}/likes")
+    public void increamentLike(@PathVariable Long pollId) {
+        pollService.increamentLike(pollId);
+    }
 }
