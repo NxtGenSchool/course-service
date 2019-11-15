@@ -45,4 +45,10 @@ public class QuestionController {
     public Question createAnswer(@PathVariable Long questionId, @RequestBody Answer userAnswer) {
         return questionService.createAnswer(questionId, userAnswer);
     }
+
+    @PutMapping(path = "questions/{questionId}/answers/{answerId}", produces = APPLICATION_JSON_VALUE)
+    public void increamentAnserLike(@PathVariable Long questionId, @PathVariable String answerId) {
+        questionService.increamentAnswerLike(questionId, answerId);
+    }
+
 }

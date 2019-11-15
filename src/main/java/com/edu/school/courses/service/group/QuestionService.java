@@ -59,4 +59,15 @@ public class QuestionService {
         question.getAnswers().add(newAnswer);
         return questionRepository.save(question);
     }
+
+    public void increamentAnswerLike(Long questionId, String answerId) {
+        Question question = questionRepository.getOne(questionId);
+        question.getAnswers().forEach(answer -> {
+            if (answer.getUidPk().equals(answerId)) {
+                int likes = answer.getLikes();
+                answer.setLikes(++likes);
+            }
+        });
+        questionRepository.save(question);
+    }
 }
