@@ -37,7 +37,7 @@ public class Group {
     private List<Event> events;
 
 //    @JsonCreator
-//    public static Group getInstance() {
+//    public static Group getEventInstance() {
 //        return new Group();
 //    }
 
