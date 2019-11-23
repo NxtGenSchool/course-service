@@ -1,7 +1,7 @@
 package com.edu.school.courses.service.group;
 
-import com.edu.school.courses.Repository.group.GroupRepository;
-import com.edu.school.courses.model.group.Group;
+import com.edu.school.courses.Repository.dao.group.GroupDao;
+import com.edu.school.courses.model.dto.group.GroupDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,22 +10,22 @@ import java.util.List;
 @Service
 public class GroupService {
 
-    private GroupRepository groupRepository;
+    private GroupDao groupDao;
 
     @Autowired
-    public GroupService(GroupRepository groupRepository) {
-        this.groupRepository = groupRepository;
+    public GroupService(GroupDao groupDao) {
+        this.groupDao = groupDao;
     }
 
-    public Group createGroup() {
-        return groupRepository.save(new Group());
+    public GroupDto createGroup(GroupDto userGroup) {
+        return groupDao.saveGroup(userGroup);
     }
 
-    public Group getGroup(Long groupId) {
-        return groupRepository.getOne(groupId);
+    public GroupDto getGroup(Long groupId) {
+        return groupDao.getGroup(groupId);
     }
 
-    public List<Group> getAllGroup() {
-        return groupRepository.findAll();
+    public List<GroupDto> getAllGroup() {
+        return groupDao.getAllGroups();
     }
 }
