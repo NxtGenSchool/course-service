@@ -1,5 +1,6 @@
 package com.edu.school.courses.model.group;
 
+import com.edu.school.courses.model.dto.group.EventDto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -26,8 +27,10 @@ public class Event {
     private String Location;
     private LocalDate Time;
     private LocalDate createdDate;
+    
 
-    public static Event getInstance(Event event) {
+
+    public static Event getEventInstance(Event event) {
         Event newEvent = new Event();
         newEvent.setAuthor(event.getAuthor());
         newEvent.setCreatedDate(event.getCreatedDate());
