@@ -1,7 +1,7 @@
 package com.edu.school.courses.service.group;
 
-import com.edu.school.courses.Repository.group.PostRepository;
-import com.edu.school.courses.model.group.Post;
+import com.edu.school.courses.Repository.dao.group.PostDao;
+import com.edu.school.courses.model.dto.group.PostDto;
 import com.edu.school.courses.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,33 +11,32 @@ import java.util.List;
 @Service
 public class PostService {
 
-    private PostRepository postRepository;
+    private PostDao postDao;
     private CourseService courseService;
 
     @Autowired
-    public PostService(PostRepository postRepository, CourseService courseService) {
-        this.postRepository = postRepository;
+    public PostService(PostDao postDao, CourseService courseService) {
+        this.postDao = postDao;
         this.courseService = courseService;
     }
 
-    public Post createPost(Long courseId, Post userPost) {
-        Post newPost = Post.getInstance(userPost);
-        newPost.setGroup(courseService.getCourse(courseId).getGroup());
-        return postRepository.save(newPost);
+    public PostDto createPost(Long courseId, PostDto postDto) {
+        postDto.setGroup(courseService.getCourse(courseId).getGroup());
+        return postDao.createPost(postDto);
     }
 
-    public Post getPost(Long postId) {
-        return postRepository.getOne(postId);
+    public PostDto getPost(Long postId) {
+        return postDao.getPost(postId);
     }
 
-    public List<Post> getAllPost() {
-        return postRepository.findAll();
+    public List<PostDto> getAllPost() {
+        return postDao.getAllPost();
     }
 
-    public void increamentLike(Long postId) {
-        Post post = postRepository.getOne(postId);
+    public void incrementLike(Long postId) {
+        PostDto post = postDao.getPost(postId);
         int likes = post.getLikes();
         post.setLikes(++likes);
-        postRepository.save(post);
+        postDao.updatePost(post);
     }
 }
