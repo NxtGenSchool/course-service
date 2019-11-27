@@ -1,9 +1,9 @@
 package com.edu.school.courses.service.group;
 
-import com.edu.school.courses.Repository.group.QuestionRepository;
-import com.edu.school.courses.model.group.Answer;
-import com.edu.school.courses.model.group.Comment;
-import com.edu.school.courses.model.group.Question;
+import com.edu.school.courses.Repository.dao.group.QuestionDao;
+import com.edu.school.courses.model.dto.group.AnswerDto;
+import com.edu.school.courses.model.dto.group.CommentDto;
+import com.edu.school.courses.model.dto.group.QuestionDto;
 import com.edu.school.courses.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,66 +13,65 @@ import java.util.List;
 @Service
 public class QuestionService {
 
-    private QuestionRepository questionRepository;
+    private QuestionDao questionDao;
     private CourseService courseService;
 
     @Autowired
-    public QuestionService(QuestionRepository questionRepository, CourseService courseService) {
-        this.questionRepository = questionRepository;
+    public QuestionService(QuestionDao questionDao, CourseService courseService) {
+        this.questionDao = questionDao;
         this.courseService = courseService;
     }
 
-    public Question createQuestion(Long courseId, Question userQuestion) {
-        Question newQuestion = Question.getInstance(userQuestion);
-        newQuestion.setGroup(courseService.getCourse(courseId).getGroup());
-        return questionRepository.save(newQuestion);
+    public QuestionDto createQuestion(Long courseId, QuestionDto userQuestionDto) {
+        userQuestionDto.setGroup(courseService.getCourse(courseId).getGroup());
+        return questionDao.createQuestion(userQuestionDto);
     }
 
-    public Question getQuestion(Long questionId) {
-        return questionRepository.getOne(questionId);
+    public QuestionDto getQuestion(Long questionId) {
+        return questionDao.getQuestion(questionId);
     }
 
-    public List<Question> getAllQuestion() {
-        return questionRepository.findAll();
+    public List<QuestionDto> getAllQuestion() {
+        return questionDao.getAllQuestion();
     }
 
-    public void createComment(Long questionId, Comment userComment) {
-        Question question = questionRepository.getOne(questionId);
-        Comment newComment = Comment.getInstance(userComment);
+    public void createComment(Long questionId, CommentDto userCommentDto) {
+        QuestionDto questionDto = questionDao.getQuestion(questionId);
+        questionDto.getComments().add(CommentDto.CommentDtoToCommentMapper(userCommentDto));
+        questionDao.updateQuestion(questionDto);
     }
 
-    public List<Comment> getAllComments(Long questionId) {
-        Question question = questionRepository.getOne(questionId);
-        return question.getComments();
+    public List<CommentDto> getAllComments(Long questionId) {
+        QuestionDto question = questionDao.getQuestion(questionId);
+        return CommentDto.CommentToCommentDtoMapper(question.getComments());
     }
 
-    public void increamentAsk(Long questionId) {
-        Question question = questionRepository.getOne(questionId);
-        int asks = question.getAsk();
-        question.setAsk(++asks);
-        questionRepository.save(question);
+    public void incrementAsk(Long questionId) {
+        QuestionDto questionDto = questionDao.getQuestion(questionId);
+        int asks = questionDto.getAsk();
+        questionDto.setAsk(++asks);
+        questionDao.updateQuestion(questionDto);
     }
 
-    public Question createAnswer(Long questionId, Answer userAnswer) {
-        Question question = questionRepository.getOne(questionId);
-        Answer newAnswer = Answer.getInstance(userAnswer);
-        question.getAnswers().add(newAnswer);
-        return questionRepository.save(question);
+    public QuestionDto createAnswer(Long questionId, AnswerDto userAnswerDto) {
+        QuestionDto questionDto = questionDao.getQuestion(questionId);
+        questionDto.getAnswers().add(AnswerDto.AnswerDtoToAnswerMapper(userAnswerDto));
+        return questionDao.updateQuestion(questionDto);
     }
 
-    public void increamentAnswerLike(Long questionId, String answerId) {
-        Question question = questionRepository.getOne(questionId);
-        question.getAnswers().forEach(answer -> {
+    public void incrementAnswerLike(Long questionId, String answerId) {
+        QuestionDto questionDto = questionDao.getQuestion(questionId);
+        questionDto.getAnswers().forEach(answer -> {
             if (answer.getUidPk().equals(answerId)) {
                 int likes = answer.getLikes();
                 answer.setLikes(++likes);
             }
         });
-        questionRepository.save(question);
+        questionDao.updateQuestion(questionDto);
     }
 
-    public List<Answer> getAllAnswers(Long questionId) {
-        Question question = questionRepository.getOne(questionId);
-        return question.getAnswers();
+    public List<AnswerDto> getAllAnswers(Long questionId) {
+        QuestionDto questionDto = questionDao.getQuestion(questionId);
+        return AnswerDto.AnswerToAnswerDtoMapper(questionDto.getAnswers());
     }
 }
