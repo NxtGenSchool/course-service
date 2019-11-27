@@ -35,13 +35,13 @@ public class QuestionService {
         return questionDao.getAllQuestion();
     }
 
-    public void createComment(Long questionId, CommentDto userCommentDto) {
+    public void createCommentForQuestion(Long questionId, CommentDto userCommentDto) {
         QuestionDto questionDto = questionDao.getQuestion(questionId);
         questionDto.getComments().add(CommentDto.CommentDtoToCommentMapper(userCommentDto));
         questionDao.updateQuestion(questionDto);
     }
 
-    public List<CommentDto> getAllComments(Long questionId) {
+    public List<CommentDto> getAllCommentsOfQuestionById(Long questionId) {
         QuestionDto question = questionDao.getQuestion(questionId);
         return CommentDto.CommentToCommentDtoMapper(question.getComments());
     }
