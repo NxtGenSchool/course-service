@@ -5,6 +5,7 @@ import com.edu.school.courses.model.CourseSchedule;
 import com.edu.school.courses.model.group.Group;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CourseDto {
@@ -20,16 +21,40 @@ public class CourseDto {
 
     public static CourseDto CourseToCourseDtoMapper(Course course) {
         CourseDto courseDto = new CourseDto();
-        courseDto.setUidPk(course.getUidPk());
-        courseDto.setGroup(course.getGroup());
-        courseDto.setCourseSchedules(course.getCourseSchedules());
-        courseDto.setStartDate(course.getStartDate());
-        courseDto.setEndDate(course.getEndDate());
+        if (course != null) {
+            courseDto.setUidPk(course.getUidPk());
+            courseDto.setGroup(course.getGroup());
+            courseDto.setCourseSchedules(course.getCourseSchedules());
+            courseDto.setStartDate(course.getStartDate());
+            courseDto.setEndDate(course.getEndDate());
+        }
         return courseDto;
     }
 
     public static Course CourseDtoToCourseMapper(CourseDto courseDto) {
-        return null;
+        Course course = new Course();
+        if (courseDto != null) {
+            course.setGroup(courseDto.getGroup());
+            course.setCourseSchedules(courseDto.getCourseSchedules());
+            course.setUidPk(courseDto.getUidPk());
+            course.setStartDate(courseDto.getStartDate());
+            course.setEndDate(courseDto.getEndDate());
+        }
+        return course;
+    }
+
+    public static List<CourseDto> CourseToCourseDtoMapper(List<Course> courses) {
+        List<CourseDto> courseDtoList = new ArrayList<>();
+        for (Course course : courses) {
+            CourseDto courseDto = new CourseDto();
+            courseDto.setUidPk(course.getUidPk());
+            courseDto.setGroup(course.getGroup());
+            courseDto.setCourseSchedules(course.getCourseSchedules());
+            courseDto.setStartDate(course.getStartDate());
+            courseDto.setEndDate(course.getEndDate());
+            courseDtoList.add(courseDto);
+        }
+        return courseDtoList;
     }
 
     public Long getUidPk() {
