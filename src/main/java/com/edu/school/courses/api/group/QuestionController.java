@@ -46,6 +46,8 @@ public class QuestionController {
         return questionService.createAnswer(questionId, userAnswer);
     }
 
+    //TODO: Get answer by id api missing
+
     @GetMapping(path = "questions/{questionId}/answers/all", produces = APPLICATION_JSON_VALUE)
     public List<AnswerDto> getAllAnswer(@PathVariable Long questionId) {
         return questionService.getAllAnswers(questionId);
