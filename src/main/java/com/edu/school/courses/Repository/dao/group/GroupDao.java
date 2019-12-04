@@ -1,14 +1,14 @@
 package com.edu.school.courses.Repository.dao.group;
 
-import com.edu.school.courses.model.dto.group.GroupDto;
+import com.edu.school.courses.model.group.Group;
 
 import java.util.List;
 
 public interface GroupDao {
 
-    GroupDto saveGroup(GroupDto group);
+    Group saveGroup(Group group);
 
-    GroupDto getGroup(Long groupId);
+    Group getGroup(Long groupId);
 
-    List<GroupDto> getAllGroups();
+    List<Group> getAllGroups();
 }

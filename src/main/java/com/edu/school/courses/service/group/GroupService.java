@@ -2,7 +2,7 @@ package com.edu.school.courses.service.group;
 
 import com.edu.school.courses.Repository.dao.group.GroupDao;
 import com.edu.school.courses.model.dto.course.CourseDto;
-import com.edu.school.courses.model.dto.group.GroupDto;
+import com.edu.school.courses.model.group.Group;
 import com.edu.school.courses.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,22 +21,22 @@ public class GroupService {
         this.courseService = courseService;
     }
 
-    public GroupDto createGroup(Long courseId, GroupDto userGroup) {
+    public Group createGroup(Long courseId, Group userGroup) {
         CourseDto courseDto = courseService.getCourse(courseId);
         if (courseDto.getGroup() == null) {
             return null;
         }
-        GroupDto savedGroupDto = groupDao.saveGroup(userGroup);
-        courseDto.setGroup(GroupDto.GroupDtoToGroupMapper(savedGroupDto));
+        Group savedGroup = groupDao.saveGroup(userGroup);
+        courseDto.setGroup(savedGroup);
         courseService.updateCourse(courseDto);
-        return savedGroupDto;
+        return savedGroup;
     }
 
-    public GroupDto getGroup(Long groupId) {
+    public Group getGroup(Long groupId) {
         return groupDao.getGroup(groupId);
     }
 
-    public List<GroupDto> getAllGroup() {
+    public List<Group> getAllGroup() {
         return groupDao.getAllGroups();
     }
 }

@@ -2,7 +2,6 @@ package com.edu.school.courses.Repository.dao.group.impl;
 
 import com.edu.school.courses.Repository.dao.group.GroupDao;
 import com.edu.school.courses.Repository.group.GroupRepository;
-import com.edu.school.courses.model.dto.group.GroupDto;
 import com.edu.school.courses.model.group.Group;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -20,22 +19,21 @@ public class GroupDaoImpl implements GroupDao {
     }
 
     @Override
-    public GroupDto saveGroup(GroupDto group) {
-        Group domainGroup = GroupDto.GroupDtoToGroupMapper(group);
-        GroupDto savedGroupDto = GroupDto.GroupToGroupDtoMapper(groupRepository.save(domainGroup));
+    public Group saveGroup(Group group) {
+        Group savedGroupDto = groupRepository.save(group);
         return savedGroupDto;
     }
 
     @Override
-    public GroupDto getGroup(Long groupId) {
+    public Group getGroup(Long groupId) {
         Group domainGroup = groupRepository.getOne(groupId);
-        return GroupDto.GroupToGroupDtoMapper(domainGroup);
+        return domainGroup;
     }
 
     @Override
-    public List<GroupDto> getAllGroups() {
+    public List<Group> getAllGroups() {
         List<Group> domainGroups = groupRepository.findAll();
-        return GroupDto.GroupToGroupDtoMapper(domainGroups);
+        return domainGroups;
     }
 
 }
