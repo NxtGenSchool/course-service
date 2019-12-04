@@ -1,14 +1,14 @@
 package com.edu.school.courses.Repository.dao.group;
 
-import com.edu.school.courses.model.dto.group.EventDto;
+import com.edu.school.courses.model.group.Event;
 
 import java.util.List;
 
 public interface EventDao {
 
-    EventDto createEvent(Long courseId, EventDto eventDto);
+    Event createEvent(Long courseId, Event event);
 
-    EventDto getEvent(Long eventId);
+    Event getEvent(Long eventId);
 
-    List<EventDto> getAllEvent();
+    List<Event> getAllEvent();
 }

@@ -23,16 +23,19 @@ public class EventController {
 
     @PostMapping(path = "events", produces = APPLICATION_JSON_VALUE)
     public EventDto createEvent(@PathVariable Long courseId, @RequestBody EventDto eventDto) {
-        return eventService.createEvent(courseId, eventDto);
+        Event newEvent = eventService.createEvent(courseId, EventDto.EventDtoToEventMapper(eventDto));
+        return EventDto.EventToEventDtoMapper(newEvent);
     }
 
     @GetMapping(path = "events/{eventId}", produces = APPLICATION_JSON_VALUE)
     public EventDto getEvent(@PathVariable Long eventId) {
-        return eventService.getEvent(eventId);
+        Event event = eventService.getEvent(eventId);
+        return EventDto.EventToEventDtoMapper(event);
     }
 
     @GetMapping(path = "events/all", produces = APPLICATION_JSON_VALUE)
     public List<EventDto> getAllEvent() {
-        return eventService.getAllEvent();
+        List<Event> events = eventService.getAllEvent();
+        return EventDto.EventToEvenDtoMapper(events);
     }
 }
