@@ -18,7 +18,8 @@ public class GroupService {
     }
 
     public GroupDto createGroup(GroupDto userGroup) {
-        return groupDao.saveGroup(userGroup);
+        GroupDto savedGroupDto = groupDao.saveGroup(userGroup);
+        return savedGroupDto;
     }
 
     public GroupDto getGroup(Long groupId) {

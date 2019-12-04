@@ -20,7 +20,7 @@ public class GroupController {
         this.groupService = groupService;
     }
 
-    @PostMapping(path = "groups", produces = APPLICATION_JSON_VALUE)
+    @PostMapping(path = "groups/create", produces = APPLICATION_JSON_VALUE)
     public GroupDto createGroup(@RequestBody GroupDto userGroup) {
         return groupService.createGroup(userGroup);
     }

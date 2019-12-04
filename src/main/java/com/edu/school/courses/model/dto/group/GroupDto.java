@@ -30,6 +30,7 @@ public class GroupDto {
 
     public static GroupDto GroupToGroupDtoMapper(Group group) {
         GroupDto groupDto = new GroupDto();
+        groupDto.setUidPk(group.getUidPk());
         groupDto.setAdmin(group.getAdmin());
         groupDto.setEvents(group.getEvents());
         groupDto.setMembers(group.getMembers());

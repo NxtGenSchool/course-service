@@ -22,7 +22,8 @@ public class GroupDaoImpl implements GroupDao {
     @Override
     public GroupDto saveGroup(GroupDto group) {
         Group domainGroup = GroupDto.GroupDtoToGroupMapper(group);
-        return GroupDto.GroupToGroupDtoMapper(groupRepository.save(domainGroup));
+        GroupDto savedGroupDto = GroupDto.GroupToGroupDtoMapper(groupRepository.save(domainGroup));
+        return savedGroupDto;
     }
 
     @Override
