@@ -21,8 +21,8 @@ public class GroupController {
     }
 
     @PostMapping(path = "groups/create", produces = APPLICATION_JSON_VALUE)
-    public GroupDto createGroup(@RequestBody GroupDto userGroup) {
-        return groupService.createGroup(userGroup);
+    public GroupDto createGroup(@PathVariable Long courseId, @RequestBody GroupDto userGroup) {
+        return groupService.createGroup(courseId, userGroup);
     }
 
     @GetMapping(path = "groups/{groupId}", produces = APPLICATION_JSON_VALUE)
