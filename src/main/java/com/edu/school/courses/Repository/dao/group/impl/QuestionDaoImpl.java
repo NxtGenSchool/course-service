@@ -2,7 +2,7 @@ package com.edu.school.courses.Repository.dao.group.impl;
 
 import com.edu.school.courses.Repository.dao.group.QuestionDao;
 import com.edu.school.courses.Repository.group.QuestionRepository;
-import com.edu.school.courses.model.dto.group.QuestionDto;
+import com.edu.school.courses.model.group.Question;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -19,22 +19,26 @@ public class QuestionDaoImpl implements QuestionDao {
     }
 
     @Override
-    public QuestionDto createQuestion(QuestionDto questionDto) {
-        return QuestionDto.QuestionToQuestionDtoMapper(questionRepository.save(QuestionDto.QuestionDtoToQuestionMapper(questionDto)));
+    public Question createQuestion(Question question) {
+        Question newQuestion = questionRepository.save(question);
+        return newQuestion;
     }
 
     @Override
-    public QuestionDto getQuestion(Long questionId) {
-        return QuestionDto.QuestionToQuestionDtoMapper(questionRepository.getOne(questionId));
+    public Question getQuestion(Long questionId) {
+        Question question = questionRepository.getOne(questionId);
+        return question;
     }
 
     @Override
-    public List<QuestionDto> getAllQuestion() {
-        return QuestionDto.QuestionToQuestionDtoMapper(questionRepository.findAll());
+    public List<Question> getAllQuestion() {
+        List<Question> questions = questionRepository.findAll();
+        return questions;
     }
 
     @Override
-    public QuestionDto updateQuestion(QuestionDto questionDto) {
-        return QuestionDto.QuestionToQuestionDtoMapper(questionRepository.save(QuestionDto.QuestionDtoToQuestionMapper(questionDto)));
+    public Question updateQuestion(Question question) {
+        Question updatedQuestion = questionRepository.save(question);
+        return updatedQuestion;
     }
 }

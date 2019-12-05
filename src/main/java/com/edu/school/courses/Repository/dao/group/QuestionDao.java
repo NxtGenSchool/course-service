@@ -1,15 +1,15 @@
 package com.edu.school.courses.Repository.dao.group;
 
-import com.edu.school.courses.model.dto.group.QuestionDto;
+import com.edu.school.courses.model.group.Question;
 
 import java.util.List;
 
 public interface QuestionDao {
-    QuestionDto createQuestion(QuestionDto userQuestion);
+    Question createQuestion(Question userQuestion);
 
-    QuestionDto getQuestion(Long questionId);
+    Question getQuestion(Long questionId);
 
-    List<QuestionDto> getAllQuestion();
+    List<Question> getAllQuestion();
 
-    QuestionDto updateQuestion(QuestionDto questionDto);
+    Question updateQuestion(Question question);
 }
