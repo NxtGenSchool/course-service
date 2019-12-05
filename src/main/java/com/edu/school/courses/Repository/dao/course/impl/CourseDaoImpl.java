@@ -2,7 +2,7 @@ package com.edu.school.courses.Repository.dao.course.impl;
 
 import com.edu.school.courses.Repository.CourseRepository;
 import com.edu.school.courses.Repository.dao.course.CourseDao;
-import com.edu.school.courses.model.dto.course.CourseDto;
+import com.edu.school.courses.model.Course;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -19,23 +19,27 @@ public class CourseDaoImpl implements CourseDao {
     }
 
     @Override
-    public CourseDto getCourse(Long courseId) {
-        return CourseDto.CourseToCourseDtoMapper(courseRepository.getOne(courseId));
+    public Course getCourse(Long courseId) {
+        Course course = courseRepository.getOne(courseId);
+        return course;
     }
 
     @Override
-    public CourseDto createCourse(CourseDto courseDto) {
-        return CourseDto.CourseToCourseDtoMapper(courseRepository.save(CourseDto.CourseDtoToCourseMapper(courseDto)));
+    public Course createCourse(Course course) {
+        Course newCourse = courseRepository.save(course);
+        return newCourse;
     }
 
     @Override
-    public List<CourseDto> getAllCourses() {
-        return CourseDto.CourseToCourseDtoMapper(courseRepository.findAll());
+    public List<Course> getAllCourses() {
+        List<Course> courses = courseRepository.findAll();
+        return courses;
     }
 
     @Override
-    public CourseDto updateCourse(CourseDto courseDto) {
-        return CourseDto.CourseToCourseDtoMapper(courseRepository.save(CourseDto.CourseDtoToCourseMapper(courseDto)));
+    public Course updateCourse(Course course) {
+        Course updatedCourse = courseRepository.save(course);
+        return updatedCourse;
     }
 
     @Override

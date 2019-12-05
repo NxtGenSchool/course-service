@@ -1,7 +1,7 @@
 package com.edu.school.courses.service.group;
 
 import com.edu.school.courses.Repository.dao.group.EventDao;
-import com.edu.school.courses.model.dto.course.CourseDto;
+import com.edu.school.courses.model.Course;
 import com.edu.school.courses.model.group.Event;
 import com.edu.school.courses.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +23,8 @@ public class EventService {
     }
 
     public Event createEvent(Long courseId, Event event) {
-        CourseDto courseDto = courseService.getCourse(courseId);
-        event.setGroup(courseDto.getGroup());
+        Course course = courseService.getCourse(courseId);
+        event.setGroup(course.getGroup());
         Event newEvent = eventDao.createEvent(courseId, event);
         return newEvent;
     }

@@ -1,7 +1,7 @@
 package com.edu.school.courses.service;
 
 import com.edu.school.courses.Repository.dao.course.CourseDao;
-import com.edu.school.courses.model.dto.course.CourseDto;
+import com.edu.school.courses.model.Course;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,20 +17,24 @@ public class CourseService {
         this.courseDao = courseDao;
     }
 
-    public CourseDto getCourse(Long courseId) {
-        return courseDao.getCourse(courseId);
+    public Course getCourse(Long courseId) {
+        Course course = courseDao.getCourse(courseId);
+        return course;
     }
 
-    public CourseDto createCourse(CourseDto course) {
-        return courseDao.createCourse(course);
+    public Course createCourse(Course course) {
+        Course newCourse = courseDao.createCourse(course);
+        return newCourse;
     }
 
-    public List<CourseDto> getAllCourses() {
-        return courseDao.getAllCourses();
+    public List<Course> getAllCourses() {
+        List<Course> courses = courseDao.getAllCourses();
+        return courses;
     }
 
-    public CourseDto updateCourse(CourseDto courseDto) {
-        return courseDao.updateCourse(courseDto);
+    public Course updateCourse(Course course) {
+        Course updatedCourse = courseDao.updateCourse(course);
+        return updatedCourse;
     }
 
     public void deleteCourse(Long courseId) {
