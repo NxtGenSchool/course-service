@@ -1,15 +1,15 @@
 package com.edu.school.courses.Repository.dao.group;
 
-import com.edu.school.courses.model.dto.group.PollDto;
+import com.edu.school.courses.model.group.Poll;
 
 import java.util.List;
 
 public interface PollDao {
-    PollDto createPoll(PollDto pollDto);
+    Poll createPoll(Poll poll);
 
-    PollDto getPoll(Long pollId);
+    Poll getPoll(Long pollId);
 
-    List<PollDto> getAllPoll();
+    List<Poll> getAllPoll();
 
-    PollDto updatePoll(PollDto pollDto);
+    Poll updatePoll(Poll poll);
 }

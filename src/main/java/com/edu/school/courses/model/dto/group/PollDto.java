@@ -47,7 +47,7 @@ public class PollDto {
         return pollDto;
     }
 
-    public static List<PollDto> PollDtoToPollMapper(List<Poll> polls) {
+    public static List<PollDto> PollToPollDtoMapper(List<Poll> polls) {
         List<PollDto> pollDtoList = new ArrayList<>();
         for (Poll poll : polls) {
             PollDto pollDto = new PollDto();

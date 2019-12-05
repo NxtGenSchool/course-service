@@ -2,7 +2,7 @@ package com.edu.school.courses.Repository.dao.group.impl;
 
 import com.edu.school.courses.Repository.dao.group.PollDao;
 import com.edu.school.courses.Repository.group.PollRepository;
-import com.edu.school.courses.model.dto.group.PollDto;
+import com.edu.school.courses.model.group.Poll;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -19,23 +19,27 @@ public class PollDaoImpl implements PollDao {
     }
 
     @Override
-    public PollDto createPoll(PollDto pollDto) {
-        return PollDto.PollToPollDtoMapper(pollRepository.save(PollDto.PollDtoToPollMapper(pollDto)));
+    public Poll createPoll(Poll poll) {
+        Poll newPoll = pollRepository.save(poll);
+        return newPoll;
     }
 
     @Override
-    public PollDto getPoll(Long pollId) {
-        return PollDto.PollToPollDtoMapper(pollRepository.getOne(pollId));
+    public Poll getPoll(Long pollId) {
+        Poll poll = pollRepository.getOne(pollId);
+        return poll;
     }
 
     @Override
-    public List<PollDto> getAllPoll() {
-        return PollDto.PollDtoToPollMapper(pollRepository.findAll());
+    public List<Poll> getAllPoll() {
+        List<Poll> polls = pollRepository.findAll();
+        return polls;
     }
 
     @Override
-    public PollDto updatePoll(PollDto pollDto) {
-        return PollDto.PollToPollDtoMapper(pollRepository.save(PollDto.PollDtoToPollMapper(pollDto)));
+    public Poll updatePoll(Poll poll) {
+        Poll updatedPoll = pollRepository.save(poll);
+        return updatedPoll;
     }
 
 }
