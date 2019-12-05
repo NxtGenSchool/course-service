@@ -1,7 +1,7 @@
 package com.edu.school.courses.service.group;
 
 import com.edu.school.courses.Repository.dao.group.PostDao;
-import com.edu.school.courses.model.dto.group.CommentDto;
+import com.edu.school.courses.model.group.Comment;
 import com.edu.school.courses.model.group.Post;
 import com.edu.school.courses.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,13 +44,13 @@ public class PostService {
         postDao.updatePost(post);
     }
 
-    public void createCommentForPost(Long postId, CommentDto userCommentDto) {
+    public void createCommentForPost(Long postId, Comment userComment) {
         Post post = postDao.getPost(postId);
-        post.getComments().add(CommentDto.CommentDtoToCommentMapper(userCommentDto));
+        post.getComments().add(userComment);
         postDao.updatePost(post);
     }
 
-    public List<CommentDto> getAllCommentsOfPostById(Long postId) {
-        return CommentDto.CommentToCommentDtoMapper(postDao.getPost(postId).getComments());
+    public List<Comment> getAllCommentsOfPostById(Long postId) {
+        return postDao.getPost(postId).getComments();
     }
 }

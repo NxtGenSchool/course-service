@@ -2,7 +2,7 @@ package com.edu.school.courses.service.group;
 
 import com.edu.school.courses.Repository.dao.group.QuestionDao;
 import com.edu.school.courses.model.dto.group.AnswerDto;
-import com.edu.school.courses.model.dto.group.CommentDto;
+import com.edu.school.courses.model.group.Comment;
 import com.edu.school.courses.model.group.Question;
 import com.edu.school.courses.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,15 +38,15 @@ public class QuestionService {
         return questions;
     }
 
-    public void createCommentForQuestion(Long questionId, CommentDto userCommentDto) {
+    public void createCommentForQuestion(Long questionId, Comment userComment) {
         Question question = questionDao.getQuestion(questionId);
-        question.getComments().add(CommentDto.CommentDtoToCommentMapper(userCommentDto));
+        question.getComments().add(userComment);
         questionDao.updateQuestion(question);
     }
 
-    public List<CommentDto> getAllCommentsOfQuestionById(Long questionId) {
+    public List<Comment> getAllCommentsOfQuestionById(Long questionId) {
         Question question = questionDao.getQuestion(questionId);
-        return CommentDto.CommentToCommentDtoMapper(question.getComments());
+        return question.getComments();
     }
 
     public void incrementAsk(Long questionId) {
