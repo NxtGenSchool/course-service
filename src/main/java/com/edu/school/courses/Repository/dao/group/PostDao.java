@@ -1,16 +1,16 @@
 package com.edu.school.courses.Repository.dao.group;
 
-import com.edu.school.courses.model.dto.group.PostDto;
+import com.edu.school.courses.model.group.Post;
 
 import java.util.List;
 
 public interface PostDao {
 
-    PostDto createPost(PostDto postDto);
+    Post createPost(Post post);
 
-    PostDto getPost(Long postId);
+    Post getPost(Long postId);
 
-    PostDto updatePost(PostDto postDto);
+    Post updatePost(Post post);
 
-    List<PostDto> getAllPost();
+    List<Post> getAllPost();
 }

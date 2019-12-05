@@ -2,7 +2,7 @@ package com.edu.school.courses.Repository.dao.group.impl;
 
 import com.edu.school.courses.Repository.dao.group.PostDao;
 import com.edu.school.courses.Repository.group.PostRepository;
-import com.edu.school.courses.model.dto.group.PostDto;
+import com.edu.school.courses.model.group.Post;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -19,22 +19,26 @@ public class PostDaoImpl implements PostDao {
     }
 
     @Override
-    public PostDto createPost(PostDto postDto) {
-        return PostDto.PostToPostDtoMapper(postRepository.save(PostDto.PostDtoToPostMapper(postDto)));
+    public Post createPost(Post post) {
+        Post newPost = postRepository.save(post);
+        return newPost;
     }
 
     @Override
-    public PostDto getPost(Long postId) {
-        return PostDto.PostToPostDtoMapper(postRepository.getOne(postId));
+    public Post getPost(Long postId) {
+        Post post = postRepository.getOne(postId);
+        return post;
     }
 
     @Override
-    public PostDto updatePost(PostDto postDto) {
-        return PostDto.PostToPostDtoMapper(postRepository.save(PostDto.PostDtoToPostMapper(postDto)));
+    public Post updatePost(Post post) {
+        Post updated = postRepository.save(post);
+        return updated;
     }
 
     @Override
-    public List<PostDto> getAllPost() {
-        return PostDto.PostToPostDtoMapper(postRepository.findAll());
+    public List<Post> getAllPost() {
+        List<Post> posts = postRepository.findAll();
+        return posts;
     }
 }
