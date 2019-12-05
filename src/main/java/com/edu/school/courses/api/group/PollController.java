@@ -22,8 +22,9 @@ public class PollController {
     }
 
     @PostMapping(path = "polls", produces = APPLICATION_JSON_VALUE)
-    public PollDto createPoll(@PathVariable Long courseId, @RequestBody Poll poll) {
-        Poll newPoll = pollService.createPoll(courseId, poll);
+    public PollDto createPoll(@PathVariable Long courseId, @RequestBody PollDto pollDto) {
+        Poll userPoll = PollDto.PollDtoToPollMapper(pollDto);
+        Poll newPoll = pollService.createPoll(courseId, userPoll);
         return PollDto.PollToPollDtoMapper(newPoll);
     }
 
