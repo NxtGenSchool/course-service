@@ -1,7 +1,7 @@
 package com.edu.school.courses.service.group;
 
 import com.edu.school.courses.Repository.dao.group.QuestionDao;
-import com.edu.school.courses.model.dto.group.AnswerDto;
+import com.edu.school.courses.model.group.Answer;
 import com.edu.school.courses.model.group.Comment;
 import com.edu.school.courses.model.group.Question;
 import com.edu.school.courses.service.CourseService;
@@ -56,9 +56,9 @@ public class QuestionService {
         questionDao.updateQuestion(question);
     }
 
-    public Question createAnswer(Long questionId, AnswerDto userAnswerDto) {
+    public Question createAnswer(Long questionId, Answer userAnswer) {
         Question question = questionDao.getQuestion(questionId);
-        question.getAnswers().add(AnswerDto.AnswerDtoToAnswerMapper(userAnswerDto));
+        question.getAnswers().add(userAnswer);
         return questionDao.updateQuestion(question);
     }
 
@@ -73,8 +73,8 @@ public class QuestionService {
         questionDao.updateQuestion(question);
     }
 
-    public List<AnswerDto> getAllAnswers(Long questionId) {
+    public List<Answer> getAllAnswers(Long questionId) {
         Question question = questionDao.getQuestion(questionId);
-        return AnswerDto.AnswerToAnswerDtoMapper(question.getAnswers());
+        return question.getAnswers();
     }
 }

@@ -2,6 +2,7 @@ package com.edu.school.courses.api.group;
 
 import com.edu.school.courses.model.dto.group.AnswerDto;
 import com.edu.school.courses.model.dto.group.QuestionDto;
+import com.edu.school.courses.model.group.Answer;
 import com.edu.school.courses.model.group.Question;
 import com.edu.school.courses.service.group.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +48,8 @@ public class QuestionController {
     }
 
     @PostMapping(path = "questions/{questionId}/answers", produces = APPLICATION_JSON_VALUE)
-    public QuestionDto createAnswer(@PathVariable Long questionId, @RequestBody AnswerDto userAnswer) {
+    public QuestionDto createAnswer(@PathVariable Long questionId, @RequestBody AnswerDto userAnswerDto) {
+        Answer userAnswer = AnswerDto.AnswerDtoToAnswerMapper(userAnswerDto);
         Question question = questionService.createAnswer(questionId, userAnswer);
         return QuestionDto.QuestionToQuestionDtoMapper(question);
     }
@@ -56,7 +58,8 @@ public class QuestionController {
 
     @GetMapping(path = "questions/{questionId}/answers/all", produces = APPLICATION_JSON_VALUE)
     public List<AnswerDto> getAllAnswer(@PathVariable Long questionId) {
-        return questionService.getAllAnswers(questionId);
+        List<Answer> answers = questionService.getAllAnswers(questionId);
+        return AnswerDto.AnswerToAnswerDtoMapper(answers);
     }
 
     @PutMapping(path = "questions/{questionId}/answers/{answerId}", produces = APPLICATION_JSON_VALUE)
