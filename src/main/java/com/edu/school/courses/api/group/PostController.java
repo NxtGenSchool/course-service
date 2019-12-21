@@ -1,5 +1,6 @@
 package com.edu.school.courses.api.group;
 
+import com.edu.school.courses.model.dto.group.PostDto;
 import com.edu.school.courses.model.group.Post;
 import com.edu.school.courses.service.group.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,22 +22,26 @@ public class PostController {
     }
 
     @PostMapping(path = "posts", produces = APPLICATION_JSON_VALUE)
-    public Post createPost(@PathVariable Long courseId, @RequestBody Post userPost) {
-        return postService.createPost(courseId, userPost);
+    public PostDto createPost(@PathVariable Long courseId, @RequestBody PostDto userPostDto) {
+        Post userPost = PostDto.PostDtoToPostMapper(userPostDto);
+        Post newPost = postService.createPost(courseId, userPost);
+        return PostDto.PostToPostDtoMapper(newPost);
     }
 
     @GetMapping(path = "posts/{postId}", produces = APPLICATION_JSON_VALUE)
-    public Post getPost(@PathVariable Long postId) {
-        return postService.getPost(postId);
+    public PostDto getPost(@PathVariable Long postId) {
+        Post post = postService.getPost(postId);
+        return PostDto.PostToPostDtoMapper(post);
     }
 
     @GetMapping(path = "posts/all", produces = APPLICATION_JSON_VALUE)
-    public List<Post> getAllPost() {
-        return postService.getAllPost();
+    public List<PostDto> getAllPost() {
+        List<Post> posts = postService.getAllPost();
+        return PostDto.PostToPostDtoMapper(posts);
     }
 
     @PutMapping(path = "posts/{postId}/like", produces = APPLICATION_JSON_VALUE)
-    public void increamentLike(@PathVariable Long postId) {
-        postService.increamentLike(postId);
+    public void incrementLike(@PathVariable Long postId) {
+        postService.incrementLike(postId);
     }
 }

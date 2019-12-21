@@ -1,9 +1,9 @@
 package com.edu.school.courses.api;
 
 import com.edu.school.courses.model.Course;
+import com.edu.school.courses.model.dto.course.CourseDto;
 import com.edu.school.courses.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,23 +21,29 @@ public class CourseController {
     }
 
     @PostMapping(path = "courses/create" , produces = APPLICATION_JSON_VALUE)
-    public Course createCourse(@RequestBody Course newCourse) {
-        return courseService.createCourse(newCourse);
+    public CourseDto createCourse(@RequestBody CourseDto userCourseDto) {
+        Course userCourse = CourseDto.CourseDtoToCourseMapper(userCourseDto);
+        Course newCourse = courseService.createCourse(userCourse);
+        return CourseDto.CourseToCourseDtoMapper(newCourse);
     }
 
     @GetMapping( path = "courses/{courseId}" , produces = APPLICATION_JSON_VALUE)
-    public Course getCourse(@PathVariable Long courseId) {
-        return courseService.getCourse(courseId);
+    public CourseDto getCourse(@PathVariable Long courseId) {
+        Course course = courseService.getCourse(courseId);
+        return CourseDto.CourseToCourseDtoMapper(course);
     }
 
     @GetMapping( path = "courses/all" , produces = APPLICATION_JSON_VALUE)
-    public List<Course> getAllCourse() {
-        return courseService.getAllCourses();
+    public List<CourseDto> getAllCourse() {
+        List<Course> courses = courseService.getAllCourses();
+        return CourseDto.CourseToCourseDtoMapper(courses);
     }
 
     @PutMapping( path = "courses/{courseId}" , produces = APPLICATION_JSON_VALUE)
-    public Course updateCourse(@RequestBody Course course) {
-        return courseService.updateCourse(course);
+    public CourseDto updateCourse(@RequestBody CourseDto courseDto) {
+        Course course = CourseDto.CourseDtoToCourseMapper(courseDto);
+        Course updatedCourse = courseService.updateCourse(course);
+        return CourseDto.CourseToCourseDtoMapper(updatedCourse);
     }
 
     @DeleteMapping( path = "courses/{courseId}" , produces = APPLICATION_JSON_VALUE)

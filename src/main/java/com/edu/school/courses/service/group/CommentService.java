@@ -1,8 +1,6 @@
 package com.edu.school.courses.service.group;
 
-import com.edu.school.courses.Repository.group.PostRepository;
 import com.edu.school.courses.model.group.Comment;
-import com.edu.school.courses.model.group.Post;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,22 +9,29 @@ import java.util.List;
 @Service
 public class CommentService {
 
-    private PostRepository postRepository;
+    private PostService postService;
+    private QuestionService questionService;
 
     @Autowired
-    public CommentService(PostRepository postRepository) {
-        this.postRepository = postRepository;
+    public CommentService(PostService postService, QuestionService questionService) {
+        this.postService = postService;
+        this.questionService = questionService;
     }
 
-    public void createComment(Long postId, Comment userComment) {
-        Post post = postRepository.getOne(postId);
-        List<Comment> comments = post.getComments();
-        comments.add(userComment);
-        postRepository.save(post);
+    public void createCommentForPost(Long postId, Comment userComment) {
+        postService.createCommentForPost(postId, userComment);
     }
 
-    public List<Comment> getAllComments(Long postId) {
-        Post post = postRepository.getOne(postId);
-        return post.getComments();
+    public List<Comment> getAllCommentsForPost(Long postId) {
+        return postService.getAllCommentsOfPostById(postId);
+    }
+
+
+    public void createCommentForQuestion(Long questionId, Comment userComment) {
+        questionService.createCommentForQuestion(questionId, userComment);
+    }
+
+    public List<Comment> getAllCommentsOfQuestion(Long questionId) {
+        return questionService.getAllCommentsOfQuestionById(questionId);
     }
 }

@@ -1,5 +1,6 @@
 package com.edu.school.courses.api.group;
 
+import com.edu.school.courses.model.dto.group.PollDto;
 import com.edu.school.courses.model.group.Poll;
 import com.edu.school.courses.service.group.PollService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,22 +22,31 @@ public class PollController {
     }
 
     @PostMapping(path = "polls", produces = APPLICATION_JSON_VALUE)
-    public Poll createPoll(@PathVariable Long courseId, @RequestBody Poll poll) {
-        return pollService.createPoll(courseId, poll);
+    public PollDto createPoll(@PathVariable Long courseId, @RequestBody PollDto pollDto) {
+        Poll userPoll = PollDto.PollDtoToPollMapper(pollDto);
+        Poll newPoll = pollService.createPoll(courseId, userPoll);
+        return PollDto.PollToPollDtoMapper(newPoll);
     }
 
     @GetMapping(path = "polls/{pollId}", produces = APPLICATION_JSON_VALUE)
-    public Poll getPoll(@PathVariable Long pollId) {
-        return pollService.getPoll(pollId);
+    public PollDto getPoll(@PathVariable Long pollId) {
+        Poll poll = pollService.getPoll(pollId);
+        return PollDto.PollToPollDtoMapper(poll);
     }
 
     @GetMapping(path = "polls/all", produces = APPLICATION_JSON_VALUE)
-    public List<Poll> getAllPoll() {
-        return pollService.getAllPoll();
+    public List<PollDto> getAllPoll() {
+        List<Poll> polls = pollService.getAllPoll();
+        return PollDto.PollToPollDtoMapper(polls);
     }
 
     @PutMapping(path = "polls/{pollId}/options/{optionId}")
-    public void increamentOptionCounter(@PathVariable Long pollId, @PathVariable String optionId) {
-        pollService.increamentPollCounter(pollId, optionId);
+    public void incrementOptionCounter(@PathVariable Long pollId, @PathVariable String optionId) {
+        pollService.incrementPollCounter(pollId, optionId);
+    }
+
+    @PutMapping(path = "polls/{pollId}/likes")
+    public void incrementLike(@PathVariable Long pollId) {
+        pollService.incrementLike(pollId);
     }
 }

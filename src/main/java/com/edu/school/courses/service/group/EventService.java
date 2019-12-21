@@ -1,6 +1,6 @@
 package com.edu.school.courses.service.group;
 
-import com.edu.school.courses.Repository.group.EventRepository;
+import com.edu.school.courses.Repository.dao.group.EventDao;
 import com.edu.school.courses.model.Course;
 import com.edu.school.courses.model.group.Event;
 import com.edu.school.courses.service.CourseService;
@@ -12,28 +12,29 @@ import java.util.List;
 @Service
 public class EventService {
 
-    private EventRepository eventRepository;
+    private EventDao eventDao;
 
     private CourseService courseService;
 
     @Autowired
-    public EventService(EventRepository eventRepository, CourseService courseService) {
-        this.eventRepository = eventRepository;
+    public EventService( EventDao eventDao, CourseService courseService) {
+        this.eventDao = eventDao;
         this.courseService = courseService;
     }
 
     public Event createEvent(Long courseId, Event event) {
-        Event newEvent = Event.getInstance(event);
         Course course = courseService.getCourse(courseId);
-        newEvent.setGroup(course.getGroup());
-        return eventRepository.save(newEvent);
+        event.setGroup(course.getGroup());
+        Event newEvent = eventDao.createEvent(courseId, event);
+        return newEvent;
     }
 
     public Event getEvent(Long eventId) {
-        return eventRepository.getOne(eventId);
+        return eventDao.getEvent(eventId);
     }
 
     public List<Event> getAllEvent() {
-        return eventRepository.findAll();
+        List<Event> events = eventDao.getAllEvent();
+        return events;
     }
 }

@@ -1,0 +1,582 @@
+{
+  "info": {
+    "_postman_id": "e5bad195-9e7e-4ed9-9fec-ead6db61a7d4",
+    "name": "course-service",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "course api",
+      "item": [
+        {
+          "name": "Create a course",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "46bc8a4a-699f-40f5-ac68-6f178bc7f06e",
+                "exec": [
+                  "let apiResponse = pm.response.json();",
+                  "pm.collectionVariables.set(\"courseUID\",apiResponse.uidPk);",
+                  "",
+                  "pm.test(\"course/create post response status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "pm.test(\"course/create post response contains uidPk\", function () {",
+                  "    pm.expect(pm.response.text()).to.include(\"uidPk\");",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "name": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"startDate\": \"2019-09-03\",\r\n    \"endDate\": \"2019-12-05\",\r\n    \"courseSchedules\": [\r\n        {\r\n            \"location\": \"FG-345\",\r\n            \"dayOfWeek\": \"TUESDAY\",\r\n            \"startTime\": \"10:30:00\",\r\n            \"endTime\": \"11:30:00\"\r\n        }\r\n    ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/courses/create",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "courses",
+                "create"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get a course",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "8ea77110-9ff7-4879-a180-d3b3a3e18044",
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "pm.test(\"Body matches string\", function () {",
+                  "    pm.expect(pm.response.text()).to.include(\"courseSchedules\");",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/courses/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "courses",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "protocolProfileBehavior": {}
+    },
+    {
+      "name": "group api",
+      "item": [
+        {
+          "name": "group",
+          "item": [
+            {
+              "name": "Create group",
+              "event": [
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "id": "22d166f1-4051-498e-ab13-e7736fd564fd",
+                    "exec": [
+                      "//pm.enviroment.set(\"courseUID\", pm.enviroment.get(\"courseUID\"));"
+                    ],
+                    "type": "text/javascript"
+                  }
+                },
+                {
+                  "listen": "test",
+                  "script": {
+                    "id": "86a4fe11-43a0-48cb-ad63-9ad6c65931e3",
+                    "exec": [
+                      "let apiResponse = pm.response.json();",
+                      "pm.environment.set(\"groupUID\",apiResponse.uidPk);",
+                      "",
+                      "pm.test(\"course/create post response status code is 200\", function () {",
+                      "    pm.response.to.have.status(200);",
+                      "});",
+                      "pm.test(\"course/create post response contains uidPk\", function () {",
+                      "    pm.expect(pm.response.text()).to.include(\"uidPk\");",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "name": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n\t\"uidPk\" : null,\r\n    \"admin\": \"Shubham Singh\",\r\n    \"moderator\":[ \"Parth Patel\"],\r\n    \"members\": null,\r\n    \"posts\": null,\r\n    \"questions\": null,\r\n    \"polls\": null,\r\n    \"events\": null\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/courses/{{courseUID}}/groups/create",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "courses",
+                    "{{courseUID}}",
+                    "groups",
+                    "create"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get a group",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/courses/{{courseUID}}/groups/{{groupUID}}",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "courses",
+                    "{{courseUID}}",
+                    "groups",
+                    "{{groupUID}}"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ],
+          "protocolProfileBehavior": {},
+          "_postman_isSubFolder": true
+        },
+        {
+          "name": "post",
+          "item": [
+            {
+              "name": "Create a Post",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "id": "49ca4acd-f1bf-47c4-b018-2dd7ee5286df",
+                    "exec": [
+                      "let apiResponse = pm.response.json();",
+                      "pm.environment.set(\"postUID\",apiResponse.uidPk);",
+                      "",
+                      "pm.test(\"course/create post response status code is 200\", function () {",
+                      "    pm.response.to.have.status(200);",
+                      "});",
+                      "pm.test(\"course/create post response contains uidPk\", function () {",
+                      "    pm.expect(pm.response.text()).to.include(\"uidPk\");",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "name": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n     \"author\": {\r\n    \t\"authorId\" : 999999,\r\n    \t\"firstName\" : \"Shubham\",\r\n    \t\"lastName\" : \"Singh\"\r\n    },\r\n    \"content\": \"This is my FIRST POST\",\r\n    \"createdDate\": null,\r\n    \"likes\": 0,\r\n    \"comments\": [{\r\n\t\t\"content\" : \"COMMENT COMMENT\",\r\n\t\t\"author\": {\r\n\t\t\t\"authorId\" : 123123,\r\n\t\t\t\"firstName\" : \"Shubham\",\r\n\t\t\t\"lastName\" : \"Singh\"\r\n\t\t},\r\n\t\t\"createdDate\": \"2019-11-08\"\r\n\t\t}]\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/courses/{{courseUID}}/group/posts",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "courses",
+                    "{{courseUID}}",
+                    "group",
+                    "posts"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get a Post",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/courses/{{courseUID}}/group/posts/{{postUID}}",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "courses",
+                    "{{courseUID}}",
+                    "group",
+                    "posts",
+                    "{{postUID}}"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ],
+          "protocolProfileBehavior": {},
+          "_postman_isSubFolder": true
+        },
+        {
+          "name": "question",
+          "item": [
+            {
+              "name": "Create a Question",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "id": "7a455844-05d1-4967-b345-af9da2652b56",
+                    "exec": [
+                      "let apiResponse = pm.response.json();",
+                      "pm.environment.set(\"questionUID\",apiResponse.uidPk);",
+                      "",
+                      "pm.test(\"course/create post response status code is 200\", function () {",
+                      "    pm.response.to.have.status(200);",
+                      "});",
+                      "pm.test(\"course/create post response contains uidPk\", function () {",
+                      "    pm.expect(pm.response.text()).to.include(\"uidPk\");",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "name": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"author\": {\r\n    \t\"authorId\" : 999999,\r\n    \t\"firstName\" : \"Shubham\",\r\n    \t\"lastName\" : \"Singh\"\r\n    },\r\n    \"content\": \"This is my FIRST Question\",\r\n    \"createdDate\": \"2019-11-08\",\r\n    \"ask\": 101010,\r\n    \"comments\": [{\r\n\t\t\"content\" : \"COMMENT 1\",\r\n\t\t\"author\": {\r\n\t\t\t\"authorId\" : 111,\r\n\t\t\t\"firstName\" : \"Shubham\",\r\n\t\t\t\"lastName\" : \"Singh\"\r\n\t\t},\r\n\t\t\"createdDate\": \"2019-11-08\"\r\n\t\t}],\r\n    \"answers\": [{\r\n\t\t\"content\" : \"Answer 1\",\r\n\t\t\"author\": {\r\n\t\t\t\"authorId\" : 111,\r\n\t\t\t\"firstName\" : \"Shubham\",\r\n\t\t\t\"lastName\" : \"Singh\"\r\n\t\t},\r\n\t\t\"createdDate\": \"2019-11-08\",\r\n\t\t\"likes\" : 11\r\n\t\t}]\r\n}\r\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/courses/{{courseUID}}/group/questions",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "courses",
+                    "{{courseUID}}",
+                    "group",
+                    "questions"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get a Question",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/courses/{{courseUID}}/group/questions/{{questionUID}}",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "courses",
+                    "{{courseUID}}",
+                    "group",
+                    "questions",
+                    "{{questionUID}}"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ],
+          "protocolProfileBehavior": {},
+          "_postman_isSubFolder": true
+        },
+        {
+          "name": "event",
+          "item": [
+            {
+              "name": "Create a Event",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "id": "a5fad131-7805-449f-8370-a4a2985a19fe",
+                    "exec": [
+                      "let apiResponse = pm.response.json();",
+                      "pm.environment.set(\"eventUID\",apiResponse.uidPk);",
+                      "",
+                      "pm.test(\"course/create post response status code is 200\", function () {",
+                      "    pm.response.to.have.status(200);",
+                      "});",
+                      "pm.test(\"course/create post response contains uidPk\", function () {",
+                      "    pm.expect(pm.response.text()).to.include(\"uidPk\");",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "name": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"author\": {\r\n    \t\"authorId\" : 999999,\r\n    \t\"firstName\" : \"Shubham\",\r\n    \t\"lastName\" : \"Singh\"\r\n    },\r\n    \"title\": \"Orogy\",\r\n    \"createdDate\": \"2019-11-08\",\r\n    \"location\": \"Time Square\",\r\n    \"time\": null,\r\n    \"description\": \"Tells meet and fuck each other !!!! Yiiiieeeeeee\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/courses/{{courseUID}}/group/events",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "courses",
+                    "{{courseUID}}",
+                    "group",
+                    "events"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get a Event",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/courses/{{courseUID}}/group/events/{{eventUID}}",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "courses",
+                    "{{courseUID}}",
+                    "group",
+                    "events",
+                    "{{eventUID}}"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ],
+          "protocolProfileBehavior": {},
+          "_postman_isSubFolder": true
+        },
+        {
+          "name": "poll",
+          "item": [
+            {
+              "name": "Create a Poll",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "id": "0b19017e-0a29-44aa-9a57-ba3fe108e040",
+                    "exec": [
+                      "let apiResponse = pm.response.json();",
+                      "pm.environment.set(\"pollUID\",apiResponse.uidPk);",
+                      "",
+                      "pm.test(\"course/create post response status code is 200\", function () {",
+                      "    pm.response.to.have.status(200);",
+                      "});",
+                      "pm.test(\"course/create post response contains uidPk\", function () {",
+                      "    pm.expect(pm.response.text()).to.include(\"uidPk\");",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "name": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"author\": {\r\n    \t\"authorId\" : 999999,\r\n    \t\"firstName\" : \"Shubham\",\r\n    \t\"lastName\" : \"Singh\"\r\n    },\r\n    \"content\": null,\r\n    \"createdDate\": null,\r\n    \"likes\": 0,\r\n    \"options\": [{\r\n\t\t\"content\" : \"Option 1\",\r\n\t\t\"counter\" : 1\r\n\t},\r\n\t{\r\n\t\t\"content\" : \"Option 2\",\r\n\t\t\"counter\" : 2\r\n\t},\r\n\t{\r\n\t\t\"content\" : \"Option 3\",\r\n\t\t\"counter\" : 3\r\n\t}]\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/courses/{{courseUID}}/group/polls",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "courses",
+                    "{{courseUID}}",
+                    "group",
+                    "polls"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get a Poll",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/courses/{{courseUID}}/group/polls/{{pollUID}}",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "courses",
+                    "{{courseUID}}",
+                    "group",
+                    "polls",
+                    "{{pollUID}}"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ],
+          "protocolProfileBehavior": {},
+          "_postman_isSubFolder": true
+        },
+        {
+          "name": "comment",
+          "item": [],
+          "protocolProfileBehavior": {},
+          "_postman_isSubFolder": true
+        }
+      ],
+      "protocolProfileBehavior": {}
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "id": "30baac12-6a0f-44e1-92a2-14b35c4afa1a",
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "id": "6cce71b8-9d84-4d7a-88c9-804b152a21b9",
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "id": "ed1176c0-1ff3-4bbf-a82c-a587629e8dd7",
+      "key": "base_url",
+      "value": "localhost:4060",
+      "type": "string"
+    },
+    {
+      "id": "04aca79e-f2ba-4648-ae75-91cca342c550",
+      "key": "courseUID",
+      "value": "null",
+      "type": "string"
+    }
+  ],
+  "protocolProfileBehavior": {}
+}

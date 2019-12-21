@@ -1,6 +1,6 @@
 package com.edu.school.courses.service;
 
-import com.edu.school.courses.Repository.CourseRepository;
+import com.edu.school.courses.Repository.dao.course.CourseDao;
 import com.edu.school.courses.model.Course;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,31 +10,34 @@ import java.util.List;
 @Service
 public class CourseService {
 
-    private CourseRepository repository;
+    private CourseDao courseDao;
 
     @Autowired
-    public CourseService(CourseRepository repository) {
-        this.repository = repository;
+    public CourseService(CourseDao courseDao) {
+        this.courseDao = courseDao;
     }
 
     public Course getCourse(Long courseId) {
-        return repository.getOne(courseId);
+        Course course = courseDao.getCourse(courseId);
+        return course;
     }
 
     public Course createCourse(Course course) {
-        Course newCourse = Course.getInstance(course);
-        return repository.save(newCourse);
+        Course newCourse = courseDao.createCourse(course);
+        return newCourse;
     }
 
     public List<Course> getAllCourses() {
-        return repository.findAll();
+        List<Course> courses = courseDao.getAllCourses();
+        return courses;
     }
 
     public Course updateCourse(Course course) {
-        return repository.existsById(course.getUidPk()) ? repository.save(course) : null;
+        Course updatedCourse = courseDao.updateCourse(course);
+        return updatedCourse;
     }
 
     public void deleteCourse(Long courseId) {
-        repository.deleteById(courseId);
+        courseDao.deleteCourse(courseId);
     }
 }

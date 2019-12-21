@@ -1,6 +1,6 @@
 package com.edu.school.courses.service.group;
 
-import com.edu.school.courses.Repository.group.PollRepository;
+import com.edu.school.courses.Repository.dao.group.PollDao;
 import com.edu.school.courses.model.group.Group;
 import com.edu.school.courses.model.group.Poll;
 import com.edu.school.courses.service.CourseService;
@@ -12,38 +12,47 @@ import java.util.List;
 @Service
 public class PollService {
 
-    private PollRepository pollRepository;
+    private PollDao pollDao;
     private CourseService courseService;
 
     @Autowired
-    public PollService(PollRepository pollRepository, CourseService courseService) {
-        this.pollRepository = pollRepository;
+    public PollService(PollDao pollDao, CourseService courseService) {
+        this.pollDao = pollDao;
         this.courseService = courseService;
     }
 
-    public Poll createPoll(Long courseId, Poll userPoll) {
-        Poll newPoll = Poll.getInstance(userPoll);
+    public Poll createPoll(Long courseId, Poll poll) {
         Group group = courseService.getCourse(courseId).getGroup();
-        newPoll.setGroup(group);
-        return pollRepository.save(newPoll);
+        poll.setGroup(group);
+        Poll newPoll = pollDao.createPoll(poll);
+        return newPoll;
     }
 
     public Poll getPoll(Long pollId) {
-        return pollRepository.getOne(pollId);
+        Poll poll = pollDao.getPoll(pollId);
+        return poll;
     }
 
     public List<Poll> getAllPoll() {
-        return pollRepository.findAll();
+        List<Poll> polls = pollDao.getAllPoll();
+        return polls;
     }
 
-    public void increamentPollCounter(Long pollId, String optionId) {
-        Poll poll = pollRepository.getOne(pollId);
+    public void incrementPollCounter(Long pollId, String optionId) {
+        Poll poll = pollDao.getPoll(pollId);
         poll.getOptions().forEach(option -> {
             if (option.getUidPk().equals(optionId)) {
                 int optionCount = option.getCounter();
                 option.setCounter(++optionCount);
             }
         });
-        pollRepository.save(poll);
+        pollDao.updatePoll(poll);
+    }
+
+    public void incrementLike(Long pollId) {
+        Poll poll = pollDao.getPoll(pollId);
+        int likes = poll.getLikes();
+        poll.setLikes(++likes);
+        pollDao.updatePoll(poll);
     }
 }
