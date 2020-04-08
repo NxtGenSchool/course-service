@@ -11,6 +11,7 @@ import java.util.List;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
+@RequestMapping("courses")
 public class CourseController {
 
     private CourseService courseService;
@@ -20,33 +21,33 @@ public class CourseController {
         this.courseService = courseService;
     }
 
-    @PostMapping(path = "courses/create" , produces = APPLICATION_JSON_VALUE)
+    @PostMapping(path = "/create" , produces = APPLICATION_JSON_VALUE)
     public CourseDto createCourse(@RequestBody CourseDto userCourseDto) {
         Course userCourse = CourseDto.CourseDtoToCourseMapper(userCourseDto);
         Course newCourse = courseService.createCourse(userCourse);
         return CourseDto.CourseToCourseDtoMapper(newCourse);
     }
 
-    @GetMapping( path = "courses/{courseId}" , produces = APPLICATION_JSON_VALUE)
+    @GetMapping( path = "/{courseId}" , produces = APPLICATION_JSON_VALUE)
     public CourseDto getCourse(@PathVariable Long courseId) {
         Course course = courseService.getCourse(courseId);
         return CourseDto.CourseToCourseDtoMapper(course);
     }
 
-    @GetMapping( path = "courses/all" , produces = APPLICATION_JSON_VALUE)
+    @GetMapping( path = "/all" , produces = APPLICATION_JSON_VALUE)
     public List<CourseDto> getAllCourse() {
         List<Course> courses = courseService.getAllCourses();
         return CourseDto.CourseToCourseDtoMapper(courses);
     }
 
-    @PutMapping( path = "courses/{courseId}" , produces = APPLICATION_JSON_VALUE)
+    @PutMapping( path = "/{courseId}" , produces = APPLICATION_JSON_VALUE)
     public CourseDto updateCourse(@RequestBody CourseDto courseDto) {
         Course course = CourseDto.CourseDtoToCourseMapper(courseDto);
         Course updatedCourse = courseService.updateCourse(course);
         return CourseDto.CourseToCourseDtoMapper(updatedCourse);
     }
 
-    @DeleteMapping( path = "courses/{courseId}" , produces = APPLICATION_JSON_VALUE)
+    @DeleteMapping( path = "/{courseId}" , produces = APPLICATION_JSON_VALUE)
     public void deleteCourse(@PathVariable Long courseId) {
         courseService.deleteCourse( courseId );
     }
