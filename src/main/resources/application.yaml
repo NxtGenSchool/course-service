@@ -9,6 +9,19 @@ server :
 
 spring :
   profiles: development
+
+  jpa :
+    hibernate:
+      ddl-auto: create
+  datasource:
+    url: jdbc:postgresql://localhost:5432/nxtgen_course
+    username: admin
+    password: admin
+
+---
+
+spring :
+  profiles: test
   h2:
     console:
       enabled : true
